@@ -1,0 +1,36 @@
+<div class="container">
+  
+
+  <h1>Weather Forecast</h1>
+  <br>
+
+  <%= render "shared/flash" %>
+
+  <%= form_tag('fetch_forecast', method: :get, role: 'form', id: 'zip_form') do %>
+    <div class="row g-3 align-items-center">
+      <div class="col-auto">
+        <%= label_tag 'Zip Code', 'Enter Zip Code:',class:"col-form-label"%>
+      </div>
+      <div class="col-auto">
+        <%= text_field_tag :zip_code, nil, class: 'form-control' %>
+        <span id="zip_error"></span>
+      </div>
+      <div class="col-auto">
+        <%= submit_tag 'Get Forecast', class: 'btn btn-primary', id: "form_submit" %>
+      </div>
+    </div>
+  <% end %>
+  <br>
+  <div class="row g-3 align-items-center">
+    <% if @forecast.present? %>
+      <ul class="col-auto">
+        <li class="list-group-item"><b>Zip Code - <%= @zip_code rescue nil%></b></li>
+        <li class="list-group-item"><b>Temperature : </b> <%= (kelvin_to_celsius(@forecast['temp'])).round(2) rescue nil%>&deg;C</li>
+        <li class="list-group-item"><b>Min Temperature : </b> <%= (kelvin_to_celsius(@forecast['temp_min'])).round(2) rescue nil %>&deg;C</li>
+        <li class="list-group-item"><b>Max Temperature : </b> <%= (kelvin_to_celsius(@forecast['temp_max'])).round(2) rescue nil %>&deg;C</li>
+        <li class="list-group-item"><b>Humidity : </b> <%= @forecast['humidity'] rescue nil %></li>
+        <li class="list-group-item"><b>Temperature is cached? : </b> <%= @forecast_cache_exists %></li>
+      </ul>
+    <% end %>
+  </div>
+</div>
