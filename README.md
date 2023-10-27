@@ -1,6 +1,6 @@
-Weather Forecast to capture temperature
+**Weather Forecast to capture temperature**
 
-Scope: 
+**Scope:** 
 
 1. Use Ruby on Rails
 2. Accept zipcode as input
@@ -8,25 +8,25 @@ Scope:
 4. display temperature details to user
 5. caching the details based upon zipcode for 30 mins
 
-Setup:
+**Setup:**
 
-Install Ruby
+**Install Ruby**
 
 $asdf plugin add ruby
 $asdf install ruby latest
 $asdf global ruby latest
 
-Install Rails
+**Install Rails**
 
 $gem install rails
 
-App Installation
+**App Installation**
 
 rails new weather-forecast --skip-activerecord # as we are storing any data in database, skipping active record
 
 cd weather-forecast
 
-Gems used
+**Gems used**
 
 gem 'httparty' #for calling third party services
 
@@ -38,16 +38,18 @@ gem 'faker' #used for generating fake address details
 bundle install
 
 
-Generated forecast controller
+**Generated forecast controller**
 
 def show
   begin
     @zip_code = params["zip_code"]
-    forecast_service = ForecastService.new('api_key')
-    #caching the forecast request for 30 minutes
-    @forecast_cache_exists = Rails.cache.exist?(@zip_code) 
-    @forecast = Rails.cache.fetch(@zip_code, expires_in: 30.minutes) do
-      forecast_service.get_forecast_data(@zip_code)
+    if @zip_code.present?
+      forecast_service = ForecastService.new('api_key')
+      #caching the forecast request for 30 minutes
+      @forecast_cache_exists = Rails.cache.exist?(@zip_code) 
+      @forecast = Rails.cache.fetch(@zip_code, expires_in: 30.minutes) do
+        forecast_service.get_forecast_data(@zip_code)
+      end
     end 
   rescue => e
     flash[:alert] = e.message
@@ -55,7 +57,7 @@ def show
 end
 
 
-Generated Service for getting weather using openweathermap
+**Generated Service for getting weather using openweathermap**
 
   def get_forecast_data(zip)
     zip_with_country = get_zip_with_country(zip)
@@ -70,9 +72,9 @@ Generated Service for getting weather using openweathermap
 
 
 1. this method is used to fetch temperature detials using zip code.
-2. api key needs to be created in https://api.openweathermap.org
+2. api key needs to be created in **https://api.openweathermap.org**
 
-Adding .env file for testing the application 
+**Adding .env file for testing the application** 
 
 Generated ForecastHelper for converting kelvin units to celsius
 
@@ -80,11 +82,11 @@ by default openweathermap units is in kelvin
 
 
 
-Sample Input before caching 
+**Sample Input before caching** 
 
 Zip Code - 530041
 
-Output
+**Output**
 
 Zip Code - 530041
 Temperature : 24.02°C
@@ -93,11 +95,11 @@ Max Temperature : 24.02°C
 Humidity : 88
 Temperature is cached? : false
 
-Sample Input after caching 
+**Sample Input after caching** 
 
 Zip Code - 530041
 
-Output
+**Output**
 
 Zip Code - 530041
 Temperature : 24.02°C
