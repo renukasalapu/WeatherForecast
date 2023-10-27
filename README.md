@@ -1,21 +1,21 @@
 **Weather Forecast to capture temperature**
 
 **Scope:** 
-
+```
 1. Use Ruby on Rails
 2. Accept zipcode as input
 3. retrieve forecast data for given zip code
 4. display temperature details to user
 5. caching the details based upon zipcode for 30 mins
-
+```
 **Setup:**
 
 **Install Ruby**
-
+```
 $asdf plugin add ruby
 $asdf install ruby latest
 $asdf global ruby latest
-
+```
 **Install Rails**
 
 $gem install rails
@@ -27,6 +27,7 @@ rails new weather-forecast --skip-activerecord # as we are storing any data in d
 cd weather-forecast
 
 **Gems used**
+```ruby
 
 gem 'httparty' #for calling third party services
 
@@ -36,10 +37,10 @@ gem 'rspec-rails' #for unit testing
 gem 'faker' #used for generating fake address details
 
 bundle install
-
+```
 
 **Generated forecast controller**
-
+```ruby
 def show
   begin
     @zip_code = params["zip_code"]
@@ -55,9 +56,12 @@ def show
     flash[:alert] = e.message
   end
 end
+```
 
 
 **Generated Service for getting weather using openweathermap**
+
+```ruby
 
   def get_forecast_data(zip)
     zip_with_country = get_zip_with_country(zip)
@@ -69,17 +73,17 @@ end
       raise response.message
     end
   end
-
+```
 
 1. this method is used to fetch temperature detials using zip code.
 2. api key needs to be created in **https://api.openweathermap.org**
 
 **Adding .env file for testing the application** 
-
+```
 Generated ForecastHelper for converting kelvin units to celsius
 
 by default openweathermap units is in kelvin
-
+```
 
 
 **Sample Input before caching** 
@@ -87,23 +91,24 @@ by default openweathermap units is in kelvin
 Zip Code - 530041
 
 **Output**
-
+```
 Zip Code - 530041
 Temperature : 24.02°C
 Min Temperature : 24.02°C
 Max Temperature : 24.02°C
 Humidity : 88
 Temperature is cached? : false
-
+```
 **Sample Input after caching** 
 
 Zip Code - 530041
 
 **Output**
-
+```
 Zip Code - 530041
 Temperature : 24.02°C
 Min Temperature : 24.02°C
 Max Temperature : 24.02°C
 Humidity : 88
 Temperature is cached? : true
+```
