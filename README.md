@@ -76,8 +76,8 @@ end
 ```
 
 1. this method is used to fetch temperature detials using zip code.
-2. for fetching country code using zip code, need to get api for **http://api.geonames.org**
-3. api key needs to be created in **https://api.openweathermap.org**
+2. for fetching country code using zip code, need to get api for **http://api.geonames.org** #test-api-key - renuka.s07
+3. api key needs to be created in **https://api.openweathermap.org** #test-api key - 5d8fe2845978a2fe722e81462df41d66
 
 ```
 Generated ForecastHelper for converting kelvin units to celsius
