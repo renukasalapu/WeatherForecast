@@ -76,9 +76,9 @@ end
 ```
 
 1. this method is used to fetch temperature detials using zip code.
-2. api key needs to be created in **https://api.openweathermap.org**
+2. for fetching country code using zip code, need to get api for **http://api.geonames.org**
+3. api key needs to be created in **https://api.openweathermap.org**
 
-**Adding .env file for testing the application** 
 ```
 Generated ForecastHelper for converting kelvin units to celsius
 
